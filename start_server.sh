@@ -10,5 +10,5 @@ docker build -t codongenie .
 cd ..
 
 docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
-docker run --name partsgenie -d -p :5000 -e VIRTUAL_HOST=test1.synbiochem.co.uk partsgenie
-docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=test2.synbiochem.co.uk codongenie
+docker run --name partsgenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk partsgenie
+docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
