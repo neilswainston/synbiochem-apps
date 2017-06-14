@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
+rm -rf PartsGenie
 git clone https://github.com/neilswainston/PartsGenie.git
 cd PartsGenie
 docker build -t partsgenie .
 cd ..
 
+rm -rf CodonGenie
 git clone https://github.com/synbiochem/CodonGenie.git
 cd CodonGenie
 docker build -t codongenie .
 cd ..
 
+rm -rf DEbrief
 git clone https://github.com/synbiochem/DEbrief.git
 cd DEbrief
 docker build -t debrief .
