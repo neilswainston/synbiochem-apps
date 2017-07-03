@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 rm -rf PathwayGenie
-git clone https://github.com/neilswainston/PathwayGenie.git
+git clone https://github.com/synbiochem/PathwayGenie.git
 cd PathwayGenie
 docker build -t pathwaygenie .
 cd ..
