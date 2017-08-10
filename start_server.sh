@@ -12,7 +12,7 @@ docker build -t codongenie .
 cd ..
 
 rm -rf DEbrief
-git clone https://github.com/synbiochem/DEbrief.git
+git clone https://github.com/dnaplusplus/DEbrief.git
 cd DEbrief
 docker build -t debrief .
 cd ..
