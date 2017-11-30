@@ -4,15 +4,9 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
 rm -rf PathwayGenie
-git clone https://github.com/synbiochem/PathwayGenie.git
+git clone https://github.com/genegeniebio/PathwayGenie.git
 cd PathwayGenie
 docker build -t pathwaygenie .
-cd ..
-
-rm -rf PathwayGenie2
-git clone https://github.com/genegeniebio/PathwayGenie.git PathwayGenie2
-cd PathwayGenie2
-docker build -t pathwaygenie2 .
 cd ..
 
 rm -rf CodonGenie
@@ -27,8 +21,27 @@ cd DEbrief
 docker build -t debrief .
 cd ..
 
-docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
-docker run --name pathwaygenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk pathwaygenie
-docker run --name pathwaygenie2 -d -p :5000 -e VIRTUAL_HOST=pathway.synbiochem.co.uk pathwaygenie2
+cd
+mkdir certs
+
+docker run --name nginx-proxy -d -p 80:80 -p 443:443 -v /var/run/docker.sock:/tmp/docker.sock:ro \
+    -v $HOME/certs:/etc/nginx/certs:ro \
+    -v /etc/nginx/vhost.d \
+    -v /usr/share/nginx/html \
+    --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
+    jwilder/nginx-proxy
+
+docker run -d \
+    --name nginx-letsencrypt \
+    --volumes-from nginx-proxy \
+    -v $HOME/certs:/etc/nginx/certs:rw \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
+    jrcs/letsencrypt-nginx-proxy-companion
+
+docker run --name pathwaygenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk \
+	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk pathwaygenie
+
 docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
-docker run --name debrief -d -p :5000 -e VIRTUAL_HOST=debrief.synbiochem.co.uk debrief
+	
+docker run --name debrief -d -p :5000 -e VIRTUAL_HOST=debrief.synbiochem.co.uk \
+	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=debrief.synbiochem.co.uk debrief
