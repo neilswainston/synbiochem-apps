@@ -27,6 +27,13 @@ cd DEbrief
 docker build -t debrief .
 cd ..
 
+rm -rf selenzyme
+mkdir selenzyme
+wget http://130.88.113.226/selenzy/selenzy.tar.gz
+tar -xzvf selenzy.tar.gz -C selenzyme
+docker build -t selenzyme .
+cd ..
+
 cd
 mkdir certs
 
@@ -53,3 +60,8 @@ docker run --name combigenie -d -p :5000 -e VIRTUAL_HOST=combi.synbiochem.co.uk 
 	
 docker run --name debrief -d -p :5000 -e VIRTUAL_HOST=debrief.synbiochem.co.uk \
 	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=debrief.synbiochem.co.uk debrief
+	
+docker run --name selenzyme -d -p :5000 -e VIRTUAL_HOST=selenzyme.synbiochem.co.uk \
+	-e LD_LIBRARY_PATH='/opt/conda/bin/../lib' -v $DIR/selenzyme:/selenzyme \
+	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=selenzyme.synbiochem.co.uk selenzyme
+
