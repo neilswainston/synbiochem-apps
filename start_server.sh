@@ -27,13 +27,6 @@ cd DEbrief
 docker build -t debrief .
 cd ..
 
-rm -rf selenzyme
-mkdir selenzyme
-wget http://130.88.113.226/selenzy/selenzy.tar.gz
-tar -xzvf selenzy.tar.gz -C selenzyme
-docker build -t selenzyme .
-cd ..
-
 cd
 mkdir certs
 
