@@ -4,7 +4,7 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
 rm -rf PathwayGenie
-git clone https://github.com/synbiochem/PathwayGenie.git
+git clone https://github.com/genegeniebio/PathwayGenie.git
 cd PathwayGenie
 docker build -t pathwaygenie .
 cd ..
