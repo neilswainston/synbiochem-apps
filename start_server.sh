@@ -36,16 +36,18 @@ cd ..
 cd
 mkdir certs
 
-docker run --name nginx-proxy -d -p 80:80 -p 443:443 -v /var/run/docker.sock:/tmp/docker.sock:ro \
+docker build -t nginx-proxy-unrestricted .
+
+docker run --name nginx-proxy-unrestricted -d -p 80:80 -p 443:443 -v /var/run/docker.sock:/tmp/docker.sock:ro \
     -v $HOME/certs:/etc/nginx/certs:ro \
     -v /etc/nginx/vhost.d \
     -v /usr/share/nginx/html \
     --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
-    bbtsoftwareag/nginx-proxy-unrestricted-requestsize
+    nginx-proxy-unrestricted
 
 docker run -d \
     --name nginx-letsencrypt \
-    --volumes-from nginx-proxy \
+    --volumes-from nginx-proxy-unrestricted \
     -v $HOME/certs:/etc/nginx/certs:rw \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     jrcs/letsencrypt-nginx-proxy-companion
