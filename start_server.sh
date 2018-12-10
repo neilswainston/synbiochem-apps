@@ -40,9 +40,8 @@ docker run --name nginx-proxy -d -p 80:80 -p 443:443 -v /var/run/docker.sock:/tm
     -v $HOME/certs:/etc/nginx/certs:ro \
     -v /etc/nginx/vhost.d \
     -v /usr/share/nginx/html \
-    -v $HOME/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf \
     --label com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true \
-    jwilder/nginx-proxy
+    bbtsoftwareag/nginx-proxy-unrestricted-requestsize
 
 docker run -d \
     --name nginx-letsencrypt \
