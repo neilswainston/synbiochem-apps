@@ -15,22 +15,10 @@ cd CodonGenie
 docker build -t codongenie .
 cd ..
 
-rm -rf GeneGenie2
-git clone https://github.com/genegeniebio/GeneGenie2.git
-cd GeneGenie2
-docker build -t genegenie2 .
-cd ..
-
 rm -rf CombiGenie
 git clone https://github.com/synbiochem/CombiGenie.git
 cd CombiGenie
 docker build -t combigenie .
-cd ..
-
-rm -rf DEbrief
-git clone https://github.com/genegeniebio/DEbrief.git
-cd DEbrief
-docker build -t debrief .
 cd ..
 
 rm -rf certs
@@ -59,10 +47,4 @@ docker run --name pathwaygenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.u
 
 docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
 
-docker run --name genegenie2 -d -p :5000 -e VIRTUAL_HOST=genegenie2.synbiochem.co.uk \
-	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=genegenie2.synbiochem.co.uk genegenie2
-
 docker run --name combigenie -d -p :5000 -e VIRTUAL_HOST=combi.synbiochem.co.uk combigenie
-	
-docker run --name debrief -d -p :5000 -e VIRTUAL_HOST=debrief.synbiochem.co.uk \
-	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=debrief.synbiochem.co.uk debrief
