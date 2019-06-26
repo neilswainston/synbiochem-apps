@@ -4,19 +4,19 @@ docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
 rm -rf PathwayGenie
-git clone https://github.com/genegeniebio/PathwayGenie.git
+git clone https://github.com/neilswainston/PathwayGenie.git
 cd PathwayGenie
 docker build -t pathwaygenie .
 cd ..
 
 rm -rf CodonGenie
-git clone https://github.com/synbiochem/CodonGenie.git
+git clone https://github.com/neilswainston/CodonGenie.git
 cd CodonGenie
 docker build -t codongenie .
 cd ..
 
 rm -rf CombiGenie
-git clone https://github.com/synbiochem/CombiGenie.git
+git clone https://github.com/neilswainston/CombiGenie.git
 cd CombiGenie
 docker build -t combigenie .
 cd ..
@@ -43,7 +43,7 @@ docker run -d \
     jrcs/letsencrypt-nginx-proxy-companion
 
 docker run --name pathwaygenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk \
-	-e LETSENCRYPT_EMAIL=neil.swainston@manchester.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk pathwaygenie
+	-e LETSENCRYPT_EMAIL=pablo.carbonell@manchester.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk pathwaygenie
 
 docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
 
