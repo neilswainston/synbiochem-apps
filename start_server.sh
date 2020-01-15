@@ -3,10 +3,10 @@ docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 docker rmi $(docker images -q)
 
-rm -rf PathwayGenie
-git clone https://github.com/neilswainston/PathwayGenie.git
-cd PathwayGenie
-docker build -t pathwaygenie .
+rm -rf PartsGenie
+git clone https://github.com/neilswainston/PartsGenie.git
+cd PartsGenie
+docker build -t partsgenie .
 cd ..
 
 rm -rf CodonGenie
@@ -42,8 +42,8 @@ docker run -d \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
     jrcs/letsencrypt-nginx-proxy-companion
 
-docker run --name pathwaygenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk \
-	-e LETSENCRYPT_EMAIL=pablo.carbonell@manchester.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk pathwaygenie
+docker run --name partsgenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk \
+	-e LETSENCRYPT_EMAIL=neil.swainston@liverpool.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk partsgenie
 
 docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
 
