@@ -9,12 +9,6 @@ cd PartsGenie
 docker build -t partsgenie .
 cd ..
 
-rm -rf CodonGenie
-git clone https://github.com/neilswainston/CodonGenie.git
-cd CodonGenie
-docker build -t codongenie .
-cd ..
-
 rm -rf CombiGenie
 git clone https://github.com/neilswainston/CombiGenie.git
 cd CombiGenie
@@ -44,7 +38,5 @@ docker run -d \
 
 docker run --name partsgenie -d -p :5000 -e VIRTUAL_HOST=parts.synbiochem.co.uk \
 	-e LETSENCRYPT_EMAIL=neil.swainston@liverpool.ac.uk -e LETSENCRYPT_HOST=parts.synbiochem.co.uk partsgenie
-
-docker run --name codongenie -d -p :5000 -e VIRTUAL_HOST=codon.synbiochem.co.uk codongenie
 
 docker run --name combigenie -d -p :5000 -e VIRTUAL_HOST=combi.synbiochem.co.uk combigenie
